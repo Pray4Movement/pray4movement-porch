@@ -74,6 +74,9 @@ class Pray4Movement_Site_Porch_Admin {
                 <a href="<?php echo esc_attr( $link ) . 'settings' ?>"
                    class="nav-tab <?php echo esc_html( ( $tab == 'settings' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>">Settings
                 </a>
+                <a href="<?php echo esc_attr( $link ) . 'ipstack' ?>"
+                   class="nav-tab <?php echo esc_html( ( $tab == 'ipstack' ) ? 'nav-tab-active' : '' ); ?>">IpStack
+                </a>
 
             </h2>
 
@@ -81,6 +84,9 @@ class Pray4Movement_Site_Porch_Admin {
             switch ($tab) {
                 case "settings":
                     $this->settings();
+                    break;
+                case "ipstack":
+                    $this->ipstack();
                     break;
                 default:
                     break;
@@ -490,6 +496,25 @@ class Pray4Movement_Site_Porch_Admin {
             </div><!--poststuff end -->
         </div><!-- wrap end -->
         <?php
+    }
+
+    public function ipstack() {
+        ?>
+        <div class="wrap">
+            <div id="poststuff">
+                <div id="post-body" class="metabox-holder columns-1">
+                    <div id="post-body-content">
+                        <!-- Main Column -->
+
+                        <?php DT_Ipstack_API::metabox_for_admin(); ?>
+
+                        <!-- End Main Column -->
+                    </div><!-- end post-body-content -->
+                </div><!-- post-body meta box container -->
+            </div><!--poststuff end -->
+        </div><!-- wrap end -->
+        <?php
+
     }
 }
 Pray4Movement_Site_Porch_Admin::instance();
