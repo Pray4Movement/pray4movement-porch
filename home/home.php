@@ -367,16 +367,7 @@ class Pray4Movement_Site_Porch_Home
 
         // geolocate IP address
         $fields['notes'] = [];
-        if ( DT_Ipstack_API::get_key() ) {
-            $result = DT_Ipstack_API::geocode_current_visitor();
-            // @todo geocode ip address
-            $fields['notes'][] = serialize( $result );
-
-        } else {
-
-            $fields['notes'][] = DT_Ipstack_API::get_real_ip_address();
-        }
-
+        $fields['notes'][] = DT_Ipstack_API::get_real_ip_address();
         $fields['notes'][] = $comment;
 
         $contact = DT_Posts::create_post('contacts', $fields, true, false );

@@ -514,7 +514,6 @@ class Pray4Movement_Site_Porch_Admin {
             </div><!--poststuff end -->
         </div><!-- wrap end -->
         <?php
-
     }
 }
 Pray4Movement_Site_Porch_Admin::instance();
