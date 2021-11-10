@@ -28,7 +28,7 @@ $content = get_option('landing_content');
                 <li><a class="smoothscroll" href="#about" title="about">About</a></li>
                 <li><a class="smoothscroll" href="#values" title="our-plan">Values</a></li>
                 <li><a class="smoothscroll" href="#contact" title="contact">Join Us</a></li>
-                <?php if( $content['sample_section'] ?? 'yes' === 'yes' ) : ?>
+                <?php if( $content['sample_section'] === 'yes' ) : ?>
                     <li><a class="smoothscroll" href="#works" title="works">Samples</a></li>
                 <?php endif; ?>
 
