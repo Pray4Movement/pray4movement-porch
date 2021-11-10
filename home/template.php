@@ -813,7 +813,7 @@ $content = get_option('landing_content');
     }
 </style>
 
-<?php if( $content['sample_section'] ?? 'yes' === 'yes' ) : ?>
+<?php if( $content['sample_section'] === 'yes' ) : ?>
 <!-- works
 ================================================== -->
 <section id="works" class="s-works">
@@ -1063,7 +1063,7 @@ $content = get_option('landing_content');
     <div class="row">
         <div class="col-full cl-copyright">
                 <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright ©<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://zume.community" target="_blank" rel="noopener noreferrer">Zúme.Community</a>
+Copyright ©<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://zume.vision" target="_blank" rel="noopener noreferrer">Zúme</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
         </div>
     </div>
