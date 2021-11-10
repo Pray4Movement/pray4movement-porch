@@ -134,13 +134,13 @@ $content = get_option('landing_content');
                 <span class="home-social-text">Instagram</span>
             </a>
         </li>
+        <?php endif; ?>
         <li>
-            <a href="/login" target="_blank" rel="noreferrer noopener">
+            <a href="/contacts" target="_blank" rel="noreferrer noopener">
                 <i class="fab"></i>
                 <span class="home-social-text">Login</span>
             </a>
         </li>
-        <?php endif; ?>
 
     </ul> <!-- end home-social -->
 
