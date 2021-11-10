@@ -551,7 +551,7 @@ $content = get_option('landing_content');
 <script>
     jQuery(document).ready(function(){
         // This is a form delay to discourage robots
-        let counter = 5;
+        let counter = 8;
         let myInterval = setInterval(function () {
             let button = jQuery('.submit-button')
 
