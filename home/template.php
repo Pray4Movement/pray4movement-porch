@@ -410,6 +410,42 @@ $content = get_option('landing_content');
 
             <?php if( isset( $content['contact_form'] ) && ! empty( $content['contact_form'] ) ) : ?>
                 <?php echo $content['contact_form']; ?>
+            <?php elseif ( isset( $content['mailchimp_form_url'] ) && ! empty( $content['mailchimp_form_url'] ) ) : ?>
+            <div class="contact-subscribe">
+                    <!-- Begin Mailchimp Signup Form -->
+                    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+                    <style type="text/css">
+                        #mc_embed_signup_scroll { color:white;}
+                        #mc_embed_signup_scroll h2 { color:white;}
+                        .mc-field-group label { color:white;}
+                        /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+                           We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                    </style>
+                    <div id="mc_embed_signup" >
+                        <form action="<?php echo esc_html( $content['mailchimp_form_url'] ?? '' ) ?>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" style="padding-left:0;margin-left:0;">
+                            <div id="mc_embed_signup_scroll" >
+                                <div class="mc-field-group" style="padding-bottom:0;">
+                                    <label for="mce-FNAME">First Name </label>
+                                    <input type="text" value="" name="FNAME" class="required" style="background:#fff; width: 50%;" id="mce-FNAME">
+                                </div>
+                                <div class="mc-field-group" style="padding-bottom:0;">
+                                    <label for="mce-EMAIL">Email Address </label>
+                                    <input type="email" value="" name="EMAIL" class="required email" style="background:#fff; width: 50%;" id="mce-EMAIL">
+                                </div>
+                                <div id="mce-responses" class="clear"  style="width:100%;">
+                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="<?php echo esc_html( $content['mailchimp_form_hidden_id'] ?? '' ) ?>" tabindex="-1" value=""></div>
+                                <div class="mc-field-group">
+                                    <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" style="margin-left:0;" >Subscribe</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='MMERGE3';ftypes[3]='zip';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+                    <!--End mc_embed_signup-->
+                </div> <!-- end contact-subscribe -->
             <?php else : ?>
                 <form id="newsletter-form" action="">
                     <div id="section-name" class="section">
@@ -493,7 +529,7 @@ $content = get_option('landing_content');
                 </div>
 
                 <div id="section-permission" class="section">
-                    <label for="phone" class="input-label">Comment
+                    <label for="comment" class="input-label">Comment
                         <textarea id="contact-comment" name="comment" class="input-text" value=""></textarea>
                     </label>
                 </div>
@@ -585,8 +621,7 @@ $content = get_option('landing_content');
             let form_data = {
                 fname: fname,
                 lname: lname,
-                email: email,
-                permission: permission
+                email: email
             }
 
             jQuery.ajax({
@@ -663,7 +698,7 @@ $content = get_option('landing_content');
                 return;
             }
 
-            let comment = jQuery('#contact-comment').html()
+            let comment = jQuery('#contact-comment').val()
 
             let form_data = {
                 name: name,

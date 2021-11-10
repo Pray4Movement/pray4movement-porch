@@ -162,6 +162,12 @@ class Pray4Movement_Site_Porch_Admin {
             if ( isset( $_POST['mailchimp_list_id'] ) )  {
                 $content['mailchimp_list_id'] = sanitize_text_field( wp_unslash( $_POST['mailchimp_list_id'] ) );
             }
+            if ( isset( $_POST['mailchimp_form_url'] ) )  {
+                $content['mailchimp_form_url'] = sanitize_text_field( wp_unslash( $_POST['mailchimp_form_url'] ) );
+            }
+            if ( isset( $_POST['mailchimp_form_hidden_id'] ) )  {
+                $content['mailchimp_form_hidden_id'] = sanitize_text_field( wp_unslash( $_POST['mailchimp_form_hidden_id'] ) );
+            }
             if ( isset( $_POST['status_for_subscriptions'] ) )  {
                 $content['status_for_subscriptions'] = sanitize_text_field( wp_unslash( $_POST['status_for_subscriptions'] ) );
             }
@@ -333,6 +339,22 @@ class Pray4Movement_Site_Porch_Admin {
                                     </td>
                                     <td>
                                         <input type="text" name="mailchimp_list_id" class="regular-text" value="<?php echo $content['mailchimp_list_id'] ?? '' ?>" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:150px;">
+                                        Mailchimp Form URL (legacy)
+                                    </td>
+                                    <td>
+                                        <input type="text" name="mailchimp_form_url" class="regular-text" value="<?php echo $content['mailchimp_form_url'] ?? '' ?>" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:150px;">
+                                        Mailchimp Form Hidden ID (legacy
+                                    </td>
+                                    <td>
+                                        <input type="text" name="mailchimp_form_hidden_id" class="regular-text" value="<?php echo $content['mailchimp_form_hidden_id'] ?? '' ?>" />
                                     </td>
                                 </tr>
                                 <tr>
