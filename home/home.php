@@ -351,13 +351,27 @@ class Pray4Movement_Site_Porch_Home
             ];
         }
 
+        if ( class_exists('DT_Ipstack_API') && ! empty( DT_Ipstack_API::get_key() ) ) {
+            $ip_result = DT_Ipstack_API::geocode_current_visitor();
+            if ( ! empty( $ip_result ) ) {
+                $fields['location_grid_meta'] = [
+                    'values' => [
+                        [
+                            'lng' => DT_Ipstack_API::parse_raw_result( $ip_result, 'lng' ),
+                            'lat' => DT_Ipstack_API::parse_raw_result( $ip_result, 'lat' )
+                        ]
+                    ]
+                ];
+            }
+        }
 
-        $fields['notes'] = [];
         // geolocate IP address
+        $fields['notes'] = [];
         if ( DT_Ipstack_API::get_key() ) {
             $result = DT_Ipstack_API::geocode_current_visitor();
             // @todo geocode ip address
             $fields['notes'][] = serialize( $result );
+
         } else {
 
             $fields['notes'][] = DT_Ipstack_API::get_real_ip_address();
@@ -366,14 +380,11 @@ class Pray4Movement_Site_Porch_Home
         $fields['notes'][] = $comment;
 
         $contact = DT_Posts::create_post('contacts', $fields, true, false );
-        if ( ! is_wp_error( $contact ) ) {
-            $contact_id = $contact['ID'];
+        if ( is_wp_error( $contact ) ) {
+            return false;
         } else {
-            return new WP_Error(__METHOD__, 'Could not create DT record.', [ 'status' => 400, 'error_data' => $contact ] );
+            return true;
         }
-
-
-        return $data;
     }
 }
 Pray4Movement_Site_Porch_Home::instance();

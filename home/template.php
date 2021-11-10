@@ -720,7 +720,7 @@ $content = get_option('landing_content');
                 .done(function(response){
                     jQuery('.loading-spinner').removeClass('active')
                     console.log(response)
-
+                    jQuery('#contact-form').html('<span class="input-label">Sent. Thank You!</span>')
                 })
                 .fail(function(e) {
                     console.log(e)
