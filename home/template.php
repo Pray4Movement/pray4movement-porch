@@ -59,7 +59,7 @@ $content = get_option('landing_content');
             </ul>
 
             <p>
-                <a class="" href="/login" title="login" style="display: block;
+                <a class="" href="/contacts" title="login" style="display: block;
                     color: #ffffff;
                     position: relative;
                     font-size: 1.6rem;">
