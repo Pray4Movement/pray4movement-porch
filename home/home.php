@@ -23,7 +23,7 @@ class Pray4Movement_Site_Porch_Home
          * Grabs an empty url at the root of the site and loads the black template.
          */
         $url = dt_get_url_path();
-        if ( empty($url) && ! dt_is_rest() ) {
+        if ( empty( $url ) && ! dt_is_rest() ) {
             add_action( "template_redirect", [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function(){ return true;
             } );
@@ -44,20 +44,20 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function _browser_tab_title( $title ){
-        $content = get_option('landing_content');
+        $content = get_option( 'landing_content' );
         return $content['title'] ?? '';
     }
 
     public function theme_redirect() {
-        $path = get_theme_file_path('template-blank.php');
+        $path = get_theme_file_path( 'template-blank.php' );
         include( $path );
         die();
     }
 
     public function _header(){
-        $content = get_option('landing_content');
+        $content = get_option( 'landing_content' );
         ?>
-        <?php echo esc_html( $content['google_analytics'] ) ?>
+        <?php echo $content['google_analytics'] ?>
 
         <!--- basic page needs
         ================================================== -->
@@ -73,19 +73,19 @@ class Pray4Movement_Site_Porch_Home
 
         <!-- CSS
         ================================================== -->
-        <link rel="stylesheet" href="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>css/base.css">
-        <link rel="stylesheet" href="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>css/vendor.css">
-        <link rel="stylesheet" href="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>css/main.css">
+        <link rel="stylesheet" href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>css/base.css">
+        <link rel="stylesheet" href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>css/vendor.css">
+        <link rel="stylesheet" href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>css/main.css">
 
         <!-- script
         ================================================== -->
-        <script src="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>js/modernizr.js"></script>
-        <script src="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>js/pace.min.js"></script>
+        <script src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>js/modernizr.js"></script>
+        <script src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>js/pace.min.js"></script>
 
         <!-- favicons
         ================================================== -->
-        <link rel="shortcut icon" href="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>favicon.png" type="image/x-icon">
-        <link rel="icon" href="<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>favicon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>favicon.png" type="image/x-icon">
+        <link rel="icon" href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>favicon.png" type="image/x-icon">
 
         <style>
             .header-logo {
@@ -107,7 +107,7 @@ class Pray4Movement_Site_Porch_Home
                 border: none;
                 -webkit-transition: all .3s ease-in-out;
                 transition: all .3s ease-in-out;
-                background-image: url(<?php echo trailingslashit( plugin_dir_url(__FILE__) ) ?>images/p4m-logo.png);
+                background-image: url(<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/p4m-logo.png);
                 background-repeat: no-repeat;
                 background-size: 50px;
                 background-position: left center;
@@ -162,15 +162,15 @@ class Pray4Movement_Site_Porch_Home
 
         $allowed_js = apply_filters( 'public_porch_allowed_js', [
             'jquery',
-//            'lodash',
-//            'site-js',
-//            'shared-functions',
-//            'mapbox-gl',
-//            'mapbox-cookie',
-//            'mapbox-search-widget',
-//            'google-search-widget',
-//            'jquery-cookie',
-//            'jquery-touch-punch',
+            //            'lodash',
+            //            'site-js',
+            //            'shared-functions',
+            //            'mapbox-gl',
+            //            'mapbox-cookie',
+            //            'mapbox-search-widget',
+            //            'google-search-widget',
+            //            'jquery-cookie',
+            //            'jquery-touch-punch',
         ] );
 
         global $wp_scripts;
@@ -190,8 +190,8 @@ class Pray4Movement_Site_Porch_Home
         $allowed_css = apply_filters( 'public_porch_allowed_css', [
             'foundation-css',
             'jquery-ui-site-css',
-//            'site-css',
-//            'mapbox-gl-css',
+            //            'site-css',
+            //            'mapbox-gl-css',
         ] );
 
         global $wp_styles;
@@ -207,7 +207,7 @@ class Pray4Movement_Site_Porch_Home
     public function header_style(){}
 
     public function body(){
-        require_once( 'template.php');
+        require_once( 'template.php' );
     }
 
     public function _footer(){
@@ -256,7 +256,7 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function save_newsletter( $data ) {
-        $content = get_option('landing_content');
+        $content = get_option( 'landing_content' );
 
         $data = dt_recursive_sanitize_array( $data );
         $email = $data['email'] ?? '';
@@ -264,15 +264,15 @@ class Pray4Movement_Site_Porch_Home
         $lname = $data['lname'] ?? '';
 
         if ( empty( $email ) && empty( $phone ) ){
-            return new WP_Error(__METHOD__, 'Must have either phone number or email address to create record.', [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Must have either phone number or email address to create record.', [ 'status' => 400 ] );
         }
 
         //API KEY and LIST ID here
         $apiKey = $content['mailchimp_api_key'];
         $listId = $content['mailchimp_list_id'];
 
-        $memberId = md5(strtolower($email));
-        $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
+        $memberId = md5( strtolower( $email ) );
+        $dataCenter = substr( $apiKey, strpos( $apiKey, '-' ) +1 );
         $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listId . '/members/' . $memberId;
 
         $json = json_encode([
@@ -284,27 +284,27 @@ class Pray4Movement_Site_Porch_Home
             ]
         ]);
 
-        $ch = curl_init($url);
+        $ch = curl_init( $url );
 
-        curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        $result = curl_exec($ch);
+        curl_setopt( $ch, CURLOPT_USERPWD, 'user:' . $apiKey );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json' ] );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+        curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'PUT' );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $json );
+        $result = curl_exec( $ch );
 
-        dt_write_log($result);
+        dt_write_log( $result );
 
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+        curl_close( $ch );
 
         return $result;
     }
 
     public function save_contact_lead( $data ) {
-        $content = get_option('landing_content');
+        $content = get_option( 'landing_content' );
         $fields = [];
 
         $data = dt_recursive_sanitize_array( $data );
@@ -314,7 +314,7 @@ class Pray4Movement_Site_Porch_Home
         $comment = $data['comment'] ?? '';
 
         if ( empty( $email ) && empty( $phone ) ){
-            return new WP_Error(__METHOD__, 'Must have either phone number or email address to create record.', [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Must have either phone number or email address to create record.', [ 'status' => 400 ] );
         }
 
         if ( ! empty( $lname ) ) {
@@ -326,12 +326,12 @@ class Pray4Movement_Site_Porch_Home
         $fields['title'] = $full_name;
         if ( ! empty( $email ) ) {
             $fields['contact_email'] = [
-                ["value" => $email ]
+                [ "value" => $email ]
             ];
         }
         if ( ! empty( $phone ) ) {
             $fields['contact_phone'] = [
-                ["value" => $phone ]
+                [ "value" => $phone ]
             ];
         }
         $fields['type'] = 'access';
@@ -352,7 +352,7 @@ class Pray4Movement_Site_Porch_Home
             ];
         }
 
-        if ( class_exists('DT_Ipstack_API') && ! empty( DT_Ipstack_API::get_key() ) ) {
+        if ( class_exists( 'DT_Ipstack_API' ) && ! empty( DT_Ipstack_API::get_key() ) ) {
             $ip_result = DT_Ipstack_API::geocode_current_visitor();
             if ( ! empty( $ip_result ) ) {
                 $fields['location_grid_meta'] = [
@@ -371,7 +371,7 @@ class Pray4Movement_Site_Porch_Home
         $fields['notes'][] = DT_Ipstack_API::get_real_ip_address();
         $fields['notes'][] = $comment;
 
-        $contact = DT_Posts::create_post('contacts', $fields, true, false );
+        $contact = DT_Posts::create_post( 'contacts', $fields, true, false );
         if ( is_wp_error( $contact ) ) {
             return false;
         } else {
