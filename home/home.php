@@ -55,8 +55,9 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function _header(){
+        $content = get_option('landing_content');
         ?>
-        <?php echo esc_html( $content['google_analytics'] ?? '' ) ?>
+        <?php echo esc_html( $content['google_analytics'] ) ?>
 
         <!--- basic page needs
         ================================================== -->
