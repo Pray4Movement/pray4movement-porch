@@ -162,15 +162,6 @@ class Pray4Movement_Site_Porch_Home
 
         $allowed_js = apply_filters( 'public_porch_allowed_js', [
             'jquery',
-            //            'lodash',
-            //            'site-js',
-            //            'shared-functions',
-            //            'mapbox-gl',
-            //            'mapbox-cookie',
-            //            'mapbox-search-widget',
-            //            'google-search-widget',
-            //            'jquery-cookie',
-            //            'jquery-touch-punch',
         ] );
 
         global $wp_scripts;
@@ -190,8 +181,6 @@ class Pray4Movement_Site_Porch_Home
         $allowed_css = apply_filters( 'public_porch_allowed_css', [
             'foundation-css',
             'jquery-ui-site-css',
-            //            'site-css',
-            //            'mapbox-gl-css',
         ] );
 
         global $wp_styles;
@@ -352,8 +341,10 @@ class Pray4Movement_Site_Porch_Home
             ];
         }
 
+        $ip_address = '';
         if ( class_exists( 'DT_Ipstack_API' ) && ! empty( DT_Ipstack_API::get_key() ) ) {
             $ip_result = DT_Ipstack_API::geocode_current_visitor();
+            $ip_address = DT_Ipstack_API::get_real_ip_address();
             if ( ! empty( $ip_result ) ) {
                 $fields['location_grid_meta'] = [
                     'values' => [
@@ -368,8 +359,10 @@ class Pray4Movement_Site_Porch_Home
 
         // geolocate IP address
         $fields['notes'] = [];
-        $fields['notes'][] = DT_Ipstack_API::get_real_ip_address();
         $fields['notes'][] = $comment;
+        if ( $ip_address ) {
+            $fields['notes'][] = $ip_address;
+        }
 
         $contact = DT_Posts::create_post( 'contacts', $fields, true, false );
         if ( is_wp_error( $contact ) ) {

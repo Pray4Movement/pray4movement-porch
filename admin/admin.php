@@ -104,7 +104,7 @@ class Pray4Movement_Site_Porch_Admin {
         $content = get_option( 'landing_content', [] );
         if ( isset( $_POST['landing_page'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['landing_page'] ) ), 'landing_page'.get_current_user_id() ) ) {
 
-            dt_write_log( $_POST );
+//            dt_write_log( $_POST );
 
             if ( isset( $_POST['title'] ) ) {
                 $content['title'] = sanitize_text_field( wp_unslash( $_POST['title'] ) );
