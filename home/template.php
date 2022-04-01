@@ -813,7 +813,7 @@ $content = get_option( 'landing_content' );
     }
 </style>
 
-<?php if ( $content['sample_section'] === 'yes' ) : ?>
+<?php if ( $content['sample_section'] ?? 'yes' === 'yes' ) : ?>
 <!-- works
 ================================================== -->
 <section id="works" class="s-works">
