@@ -343,17 +343,9 @@ class Pray4Movement_Site_Porch_Home
 
         $ip_address = '';
         if ( class_exists( 'DT_Ipstack_API' ) && ! empty( DT_Ipstack_API::get_key() ) ) {
-            $ip_result = DT_Ipstack_API::geocode_current_visitor();
-            $ip_address = DT_Ipstack_API::get_real_ip_address();
+            $ip_result = DT_Ipstack_API::get_location_grid_meta_from_current_visitor();
             if ( ! empty( $ip_result ) ) {
-                $fields['location_grid_meta'] = [
-                    'values' => [
-                        [
-                            'lng' => DT_Ipstack_API::parse_raw_result( $ip_result, 'lng' ),
-                            'lat' => DT_Ipstack_API::parse_raw_result( $ip_result, 'lat' )
-                        ]
-                    ]
-                ];
+                $fields['location_grid_meta'] = $ip_result;
             }
         }
 
