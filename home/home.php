@@ -345,7 +345,14 @@ class Pray4Movement_Site_Porch_Home
         if ( class_exists( 'DT_Ipstack_API' ) && ! empty( DT_Ipstack_API::get_key() ) ) {
             $ip_result = DT_Ipstack_API::get_location_grid_meta_from_current_visitor();
             if ( ! empty( $ip_result ) ) {
-                $fields['location_grid_meta'] = $ip_result;
+                $fields['location_grid_meta'] = [
+                    "values" => [
+                        'lng' => $ip_result['lng'],
+                        'lat' => $ip_result['lat'],
+                        'level' => $ip_result['level'],
+                        'label' => $ip_result['label']
+                    ]
+                ];
             }
         }
 
@@ -358,7 +365,7 @@ class Pray4Movement_Site_Porch_Home
 
         $contact = DT_Posts::create_post( 'contacts', $fields, true, false );
         if ( is_wp_error( $contact ) ) {
-            return false;
+            return [ $contact, $fields ];
         } else {
             return true;
         }
