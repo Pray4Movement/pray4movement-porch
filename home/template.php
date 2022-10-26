@@ -1,7 +1,7 @@
 <?php
 
 $content = get_option( 'landing_content' );
-
+dt_write_log($content);
 ?>
 <script>
     document.body.id = 'top'
@@ -479,6 +479,7 @@ $content = get_option( 'landing_content' );
         </div>
     </div> <!-- end section-header -->
 
+    <?php if ( ! ( empty( $content['facebook_url'] ) && empty( $content['twitter_url'] ) && empty( $content['instagram_url'] ) ) ) : ?>
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
             <h1 class="display-1 display-1--light">(2) Follow on social media</h1>
@@ -498,6 +499,7 @@ $content = get_option( 'landing_content' );
         </div>
 
     </div> <!-- end section-header -->
+    <?php endif; ?>
 
     <span id="contactform" name="contactform"></span>
 
@@ -551,14 +553,14 @@ $content = get_option( 'landing_content' );
 <script>
     jQuery(document).ready(function(){
         // This is a form delay to discourage robots
-        let counter = 12;
+        window.counter = 12;
         let myInterval = setInterval(function () {
             let button = jQuery('.submit-button')
 
-            button.html( 'Available in ' + counter)
-            --counter;
+            button.html( 'Available in ' + window.counter)
+            --window.counter;
 
-            if ( counter === 0 ) {
+            if ( window.counter === 0 ) {
                 clearInterval(myInterval);
                 button.html( 'Submit' ).prop('disabled', false)
             }
@@ -568,6 +570,11 @@ $content = get_option( 'landing_content' );
         /* NEWSLETTER */
         let submit_button_newsletter = jQuery('#submit-button-newsletter')
         submit_button_newsletter.on('click', function(){
+            if ( window.counter > 0 ){
+                submit_button_newsletter.html('Shame, shame, shame. We know your name ... ROBOT!').prop('disabled', true )
+                spinner.removeClass('active')
+                return;
+            }
             let spinner = jQuery('.loading-spinner')
             spinner.addClass('active')
             submit_button_newsletter.prop('disabled', true)
@@ -813,7 +820,7 @@ $content = get_option( 'landing_content' );
     }
 </style>
 
-<?php if ( $content['sample_section'] ?? 'yes' === 'yes' ) : ?>
+<?php if ( $content['sample_section'] === 'yes' ) : ?>
 <!-- works
 ================================================== -->
 <section id="works" class="s-works">
