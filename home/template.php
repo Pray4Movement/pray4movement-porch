@@ -1,7 +1,7 @@
 <?php
 
-$content = get_option( 'landing_content' );
-dt_write_log($content);
+$content = p4m_porch_fields();
+
 ?>
 <script>
     document.body.id = 'top'
@@ -13,7 +13,7 @@ dt_write_log($content);
 
     <div class="header-logo">
         <a class="site-logo" href="/">
-            <?php echo esc_html( $content['title'] ?? '' ) ?>
+            <?php echo esc_html( $content['title']['value'] ?? '' ) ?>
         </a>
     </div> <!-- end header-logo -->
     <nav class="header-nav">
@@ -21,14 +21,14 @@ dt_write_log($content);
         <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
 
         <div class="header-nav__content">
-            <h3><?php echo esc_html( $content['title'] ?? '' ) ?></h3>
+            <h3><?php echo esc_html( $content['title']['value'] ?? '' ) ?></h3>
 
             <ul class="header-nav__list">
                 <li class="current"><a class="smoothscroll" href="#home" title="home">Home</a></li>
                 <li><a class="smoothscroll" href="#about" title="about">About</a></li>
                 <li><a class="smoothscroll" href="#values" title="our-plan">Values</a></li>
                 <li><a class="smoothscroll" href="#contact" title="contact">Join Us</a></li>
-                <?php if ( $content['sample_section'] ?? 'yes' === 'yes' ) : ?>
+                <?php if ( $content['sample_section']['value'] ?? 'yes' === 'yes' ) : ?>
                     <li><a class="smoothscroll" href="#works" title="works">Samples</a></li>
                 <?php endif; ?>
 
@@ -36,24 +36,24 @@ dt_write_log($content);
 
 
 
-            <p><?php echo esc_html( $content['title'] ?? '' ) ?> serves as a connection point for anyone with a passion to see a disciple-making movement in
-                <?php echo esc_html( $content['location'] ?? '' ) ?>. Join our email prayer guide, follow us on social media, or join us for a
+            <p><?php echo esc_html( $content['title']['value'] ?? '' ) ?> serves as a connection point for anyone with a passion to see a disciple-making movement in
+                <?php echo esc_html( $content['location']['value'] ?? '' ) ?>. Join our email prayer guide, follow us on social media, or join us for a
                 prayer-walk. Above all pray with us to see spiritual life poured out on our state.</p>
 
             <ul class="header-nav__social">
-                <?php if ( ! empty( $content['facebook_url'] ?? '' ) ) : ?>
+                <?php if ( ! empty( $content['facebook_url']['value'] ?? '' ) ) : ?>
                     <li>
-                        <a href="<?php echo esc_html( $content['facebook_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener"><i class="fab fa-facebook"></i></a>
+                        <a href="<?php echo esc_html( $content['facebook_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener"><i class="fab fa-facebook"></i></a>
                     </li>
                 <?php endif; ?>
-                <?php if ( ! empty( $content['twitter_url'] ?? '' ) ) : ?>
+                <?php if ( ! empty( $content['twitter_url']['value'] ?? '' ) ) : ?>
                     <li>
-                        <a href="<?php echo esc_html( $content['twitter_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener"><i class="fab fa-twitter"></i></a>
+                        <a href="<?php echo esc_html( $content['twitter_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener"><i class="fab fa-twitter"></i></a>
                     </li>
                 <?php endif; ?>
-                <?php if ( ! empty( $content['instagram_url'] ?? '' ) ) : ?>
+                <?php if ( ! empty( $content['instagram_url']['value'] ?? '' ) ) : ?>
                     <li>
-                        <a href="<?php echo esc_html( $content['instagram_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="<?php echo esc_html( $content['instagram_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener"><i class="fab fa-instagram"></i></a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -63,7 +63,7 @@ dt_write_log($content);
                     color: #ffffff;
                     position: relative;
                     font-size: 1.6rem;">
-                    Login
+                    Team Login
                 </a>
             </p>
 
@@ -81,7 +81,7 @@ dt_write_log($content);
 <!-- home
 ================================================== -->
 
-<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="<?php echo esc_html( $content['background_image_url'] ?? '' ) ?>" data-natural-width="3000" data-natural-height="2000" data-position-y="top">
+<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="<?php echo esc_html( $content['background_image_url']['value'] ?? '' ) ?>" data-natural-width="3000" data-natural-height="2000" data-position-y="top">
 
 
     <div class="shadow-overlay"></div>
@@ -90,11 +90,10 @@ dt_write_log($content);
 
         <div class="row home-content__main">
             <h1>
-                Praying for a <br>disciple making movement <br>in <?php echo esc_html( $content['location'] ?? '' ) ?>.
+                Praying for a <br>disciple making movement <br>in <?php echo esc_html( $content['location']['value'] ?? '' ) ?>.
             </h1>
 
-            <h2 style="color:white;font-family: 'metropolis-light', 'sans-serif';font-size:3.8rem;margin-top:0;"><span style="color:#cc147f;">-</span> #<?php echo esc_html( $content['title'] ?? '' ) ?></h2>
-            <a href="#contact" class="smoothscroll"><button class="">Join Us</button></a>
+            <h2 style="color:white;font-family: 'metropolis-light', 'sans-serif';font-size:3.8rem;margin-top:0;"><span style="color:#cc147f;">-</span> #<?php echo esc_html( $content['title']['value'] ?? '' ) ?></h2>
 
         </div> <!-- end home-content__main -->
 
@@ -107,29 +106,31 @@ dt_write_log($content);
     </ul> <!-- end home-sidelinks -->
 
     <ul class="home-social">
-        <li class="home-social-title">Join Us</li>
+        <li class="home-social-title"><a class="smoothscroll" href="#about">Join Us</a></li>
+        <?php if ( ! empty( $content['mailchimp_form_url']['value'] ?? '' ) ) : ?>
         <li>
             <a href="#contact" class="smoothscroll">
                 <i class="fab fa-envelope"></i>
                 <span class="home-social-text">Email Guide</span>
             </a>
         </li>
-        <?php if ( ! empty( $content['facebook_url'] ?? '' ) ) : ?>
-        <li><a href="<?php echo esc_html( $content['facebook_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">
+        <?php endif; ?>
+        <?php if ( ! empty( $content['facebook_url']['value'] ?? '' ) ) : ?>
+        <li><a href="<?php echo esc_html( $content['facebook_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">
                 <i class="fab fa-facebook"></i>
                 <span class="home-social-text">Facebook</span>
             </a>
         </li>
         <?php endif; ?>
-        <?php if ( ! empty( $content['twitter_url'] ?? '' ) ) : ?>
-        <li><a href="<?php echo esc_html( $content['twitter_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">
+        <?php if ( ! empty( $content['twitter_url']['value'] ?? '' ) ) : ?>
+        <li><a href="<?php echo esc_html( $content['twitter_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">
                 <i class="fab fa-twitter"></i>
                 <span class="home-social-text">Twitter</span>
             </a>
         </li>
         <?php endif; ?>
-        <?php if ( ! empty( $content['instagram_url'] ?? '' ) ) : ?>
-        <li><a href="<?php echo esc_html( $content['instagram_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">
+        <?php if ( ! empty( $content['instagram_url']['value'] ?? '' ) ) : ?>
+        <li><a href="<?php echo esc_html( $content['instagram_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">
                 <i class="fab fa-instagram"></i>
                 <span class="home-social-text">Instagram</span>
             </a>
@@ -138,7 +139,7 @@ dt_write_log($content);
         <li>
             <a href="/contacts" target="_blank" rel="noreferrer noopener">
                 <i class="fab"></i>
-                <span class="home-social-text">Login</span>
+                <span class="home-social-text">Team Login</span>
             </a>
         </li>
 
@@ -159,15 +160,14 @@ dt_write_log($content);
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
             <h3 class="subhead">Who We Are</h3>
-            <h1 class="display-1">#<?php echo esc_html( $content['title'] ?? '' ) ?> serves as a connection point for anyone with a passion to see a disciple making movement in <?php echo esc_html( $content['location'] ?? '' ) ?>.</h1>
+            <h1 class="display-1">#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> serves as a connection point for anyone with a passion to see a disciple making movement in <?php echo esc_html( $content['location']['value'] ?? '' ) ?>.</h1>
         </div>
     </div> <!-- end section-header -->
 
     <div class="row" data-aos="fade-up">
         <div class="col-full">
             <p class="lead">
-                Join our email prayer guide, follow us on social media, or join us for a prayer-walk.
-                Above all, pray with us to see spiritual life poured out on our state.
+                Pray with us to see spiritual life poured out on our state.
             </p>
         </div>
     </div> <!-- end about-desc -->
@@ -179,58 +179,89 @@ dt_write_log($content);
             <div class="process__vline-left"></div>
             <div class="process__vline-right"></div>
 
-            <div class="col-block process__col" data-item="1" data-aos="fade-up">
+            <?php if ( ! empty( $content['mailchimp_form_url']['value'] ) ) : ?>
+            <div class="col-block process__col" data-item="" data-aos="fade-up">
                 <div class="process__text">
                     <h4>Email Prayer Guide</h4>
-
                     <p>
-                        We offer a regular prayer guide that includes challenges, quotes, and scripture focusing on <?php echo esc_html( $content['location'] ?? '' ) ?> issues. These serve as a help to focus us and help us pray together.
+                        We offer a regular prayer guide that includes challenges, quotes, and scripture focusing on <?php echo esc_html( $content['location']['value'] ?? '' ) ?> issues. These serve as a help to focus us and help us pray together.
                         <a href="#contact">Join our Prayer Guide</a>
                     </p>
                 </div>
             </div>
-            <div class="col-block process__col" data-item="2" data-aos="fade-up">
+            <?php endif; ?>
+            <?php if ( ! empty( $content['zoom_url']['value'] ) ) : ?>
+                <div class="col-block process__col" data-item="" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Zoom Prayer</h4>
+                        <p>We offer a regular zoom prayer calls to gather and pray for <?php echo esc_html( $content['location']['value'] ?? '' ) ?>. These serve as a help to focus us and help us pray together even when geographically distant.</p>
+                        <p><strong>Meeting Time:</strong> <?php echo esc_html( $content['zoom_meeting_time']['value'] ?? '' ) ?></p>
+                        <p><a href="<?php echo esc_html( $content['zoom_url']['value'] ?? '' ) ?>"><?php echo esc_html( $content['zoom_url']['value'] ?? '' ) ?></a></p>
+
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $content['whatsapp_url']['value'] ) ) : ?>
+                <div class="col-block process__col" data-item="" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Whatsapp Prayer Group</h4>
+                        <p>We use the messaging app WhatsApp as our group prayer chat. You can download the free WhatsApp app for phone or desktop at <a href="https://www.whatsapp.com/download">WhatsApp.com</a>. Once you have the app installed, use the link below to join the group.</p>
+                        <p><a href="<?php echo esc_html( $content['whatsapp_url']['value'] ?? '' ) ?>"><?php echo esc_html( $content['whatsapp_url']['value'] ?? '' ) ?></a></p>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $content['signal_url']['value'] ) ) : ?>
+                <div class="col-block process__col" data-item="" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Signal Prayer Group</h4>
+                        <p>We use the messaging app Signal as our group prayer chat. You can download the free Signal app for phone or desktop at <a href="https://signal.org/">Signal.org</a>. Once you have the app installed, use the link below to join the group.</p>
+                        <p><a href="<?php echo esc_html( $content['signal_url']['value'] ?? '' ) ?>"><?php echo esc_html( $content['signal_url']['value'] ?? '' ) ?></a></p>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $content['facebook_events_url']['value'] ) ) : ?>
+                <div class="col-block process__col" data-item="" data-aos="fade-up">
+                    <div class="process__text">
+                        <h4>Prayer Walks</h4>
+                        <p>
+                            Prayer walking is key. Our faith is intended to be a light on a hill. Getting out and praying
+                            over sections of the city and over the people who are there has born fruit in every nation on
+                            the planet. <?php echo esc_html( $content['location']['value'] ?? '' ) ?> is no different. Check out our
+                            <a href="<?php echo esc_html( $content['facebook_events_url']['value'] ?? '' ) ?>">Facebook Events</a>
+                            page.
+                        </p>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ( ! ( empty( $content['facebook_url']['value'] ) && empty( $content['twitter_url']['value'] ) && empty( $content['instagram_url']['value'] ) ) ) : ?>
+            <div class="col-block process__col" data-item="" data-aos="fade-up">
                 <div class="process__text">
                     <h4>Social Media</h4>
-
                     <p>
-                        Our same email challenges can also be followed on social media. Join our online prayer
-                        warriors.
-                        <?php if ( ! empty( $content['facebook_url'] ?? '' ) ) : ?>
-                        <a href="<?php echo esc_html( $content['facebook_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Facebook</a>
+                        Join our online prayer warriors in social media.
+                        <?php if ( ! empty( $content['facebook_url']['value'] ?? '' ) ) : ?>
+                        <a href="<?php echo esc_html( $content['facebook_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Facebook</a>
                         <?php endif; ?>
-                        <?php if ( ! empty( $content['twitter_url'] ?? '' ) ) : ?>
-                        , <a href="<?php echo esc_html( $content['twitter_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Twitter</a>
+                        <?php if ( ! empty( $content['twitter_url']['value'] ?? '' ) ) : ?>
+                        , <a href="<?php echo esc_html( $content['twitter_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Twitter</a>
                         <?php endif; ?>
-                        <?php if ( ! empty( $content['instagram_url'] ?? '' ) ) : ?>
-                          , and <a href="<?php echo esc_html( $content['instagram_url'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Instagram</a>
+                        <?php if ( ! empty( $content['instagram_url']['value'] ?? '' ) ) : ?>
+                          , and <a href="<?php echo esc_html( $content['instagram_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Instagram</a>
                         <?php endif; ?>
-
                     </p>
                 </div>
             </div>
-            <div class="col-block process__col" data-item="3" data-aos="fade-up">
-                <div class="process__text">
-                    <h4>Prayer Walks</h4>
+            <?php endif; ?>
 
-                    <p>
-                        Prayer walking is key. Our faith is intended to be a light on a hill. Getting out and praying
-                        over sections of the city and over the people who are there has born fruit in every nation on
-                        the planet. <?php echo esc_html( $content['location'] ?? '' ) ?> is no different. Check out our
-                        <a href="<?php echo esc_html( $content['facebook_events_url'] ?? '' ) ?>">Facebook Events</a>
-                        page.
-                    </p>
-                </div>
-            </div>
-            <div class="col-block process__col" data-item="4" data-aos="fade-up">
-                <div class="process__text">
-                    <h4>Movement Training</h4>
-                    <p>
-                        If you have a small group or sunday school that would like training on prayer walking or
-                        discipleship training on making disciples who multiply, <a href="#contactform">contact us</a>.
-                    </p>
-                </div>
-            </div>
+<!--            <div class="col-block process__col" data-item="" data-aos="fade-up">-->
+<!--                <div class="process__text">-->
+<!--                    <h4>Movement Training</h4>-->
+<!--                    <p>-->
+<!--                        If you have a small group or sunday school that would like training on prayer walking or-->
+<!--                        discipleship training on making disciples who multiply, <a href="#contactform">contact us</a>.-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </div>-->
 
         </div> <!-- end process -->
 
@@ -245,19 +276,19 @@ dt_write_log($content);
     <div class="row stats block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
 
         <div class="col-block stats__col ">
-            <div class="stats__static"><?php echo esc_html( $content['stats_population'] ?? '0' ) ?></div>
+            <div class="stats__static"><?php echo esc_html( $content['stats_population']['value'] ?? '0' ) ?></div>
             <h5>Million</h5>
         </div>
         <div class="col-block stats__col">
-            <div class="stats__count"><?php echo esc_html( $content['stats_cities'] ?? '0' ) ?></div>
+            <div class="stats__count"><?php echo esc_html( $content['stats_cities']['value'] ?? '0' ) ?></div>
             <h5>Cities</h5>
         </div>
         <div class="col-block stats__col">
-            <div class="stats__count"><?php echo esc_html( $content['stats_trainings'] ?? '0' ) ?></div>
+            <div class="stats__count"><?php echo esc_html( $content['stats_trainings']['value'] ?? '0' ) ?></div>
             <h5>New Trainings Needed</h5>
         </div>
         <div class="col-block stats__col">
-            <div class="stats__count"><?php echo esc_html( $content['stats_churches'] ?? '0' ) ?></div>
+            <div class="stats__count"><?php echo esc_html( $content['stats_churches']['value'] ?? '0' ) ?></div>
             <h5>New Churches Needed</h5>
         </div>
 
@@ -294,7 +325,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Loving</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> loves God, loves people, and helps Christians fulfill the Great Commission by
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> loves God, loves people, and helps Christians fulfill the Great Commission by
                     mobilizing prayer.
                 </p>
             </div>
@@ -306,7 +337,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Strategic</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> promotes strategic prayer for movement, knowing that ( based upon research )
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> promotes strategic prayer for movement, knowing that ( based upon research )
                     extraordinary prayer is found at the root of all modern movements.
                 </p>
             </div>
@@ -318,7 +349,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Safe</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> will never ask for money or market to you on behalf of others. The resources and
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> will never ask for money or market to you on behalf of others. The resources and
                     events we may mention will always be for the benefit and connection of the community.
                 </p>
             </div>
@@ -330,7 +361,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Open</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> welcomes collaboration of <strong>all</strong> Christians.
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> welcomes collaboration of <strong>all</strong> Christians.
                 </p>
             </div>
         </div>
@@ -341,7 +372,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Multiplying</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> cares that obedient disciples of Jesus Christ make more obedient disciples. Obeying
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> cares that obedient disciples of Jesus Christ make more obedient disciples. Obeying
                     all that Jesus commanded includes making disciples who make disciples.
                 </p>
             </div>
@@ -353,7 +384,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Expectant</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> strives to neither under- nor over-estimate man’s role in disciple multiplication
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> strives to neither under- nor over-estimate man’s role in disciple multiplication
                     movements. God declared prayer as the vehicle for seeking and receiving his kingdom in the place we live.
                 </p>
             </div>
@@ -365,7 +396,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Mobilizing</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> asks everyone to not only pray but also to mobilize prayer through relationships
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> asks everyone to not only pray but also to mobilize prayer through relationships
                     and opportunities God provides.
                 </p>
             </div>
@@ -377,7 +408,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Brief</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> is super brief, usually 1-to-3 lines long. We aim to provoke directed prayer, not
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> is super brief, usually 1-to-3 lines long. We aim to provoke directed prayer, not
                     monologue.
                 </p>
             </div>
@@ -389,7 +420,7 @@ dt_write_log($content);
             </div>
             <div class="service-text">
                 <h3 class="h4">Not Political</h3>
-                <p>#<?php echo esc_html( $content['title'] ?? '' ) ?> is not a political agenda, rather an effort for sinners who have found forgiveness
+                <p>#<?php echo esc_html( $content['title']['value'] ?? '' ) ?> is not a political agenda, rather an effort for sinners who have found forgiveness
                     in Christ to share this Good News with others.
                 </p>
             </div>
@@ -403,14 +434,15 @@ dt_write_log($content);
 ================================================== -->
 <section id="contact" class="s-contact">
 
+    <?php if ( ! empty( $content['mailchimp_form_url']['value'] ) || ! empty( $content['contact_form']['value'] ) ) :  ?>
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
             <h3 class="subhead subhead--light">Join Us</h3>
-            <h1 class="display-1 display-1--light">(1) Get our email prayer guide</h1>
+            <h1 class="display-1 display-1--light">Get our email prayer guide</h1>
 
-            <?php if ( isset( $content['contact_form'] ) && ! empty( $content['contact_form'] ) ) : ?>
-                <?php echo $content['contact_form']; ?>
-            <?php elseif ( isset( $content['mailchimp_form_url'] ) && ! empty( $content['mailchimp_form_url'] ) ) : ?>
+            <?php if ( isset( $content['contact_form']['value'] ) && ! empty( $content['contact_form']['value'] ) ) : ?>
+                <?php echo $content['contact_form']['value']; ?>
+            <?php elseif ( isset( $content['mailchimp_form_url']['value'] ) && ! empty( $content['mailchimp_form_url']['value'] ) ) : ?>
             <div class="contact-subscribe">
                     <!-- Begin Mailchimp Signup Form -->
                     <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
@@ -422,7 +454,7 @@ dt_write_log($content);
                            We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
                     </style>
                     <div id="mc_embed_signup" >
-                        <form action="<?php echo esc_html( $content['mailchimp_form_url'] ?? '' ) ?>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" style="padding-left:0;margin-left:0;">
+                        <form action="<?php echo esc_html( $content['mailchimp_form_url']['value'] ?? '' ) ?>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" style="padding-left:0;margin-left:0;">
                             <div id="mc_embed_signup_scroll" >
                                 <div class="mc-field-group" style="padding-bottom:0;">
                                     <label for="mce-FNAME">First Name </label>
@@ -436,7 +468,7 @@ dt_write_log($content);
                                     <div class="response" id="mce-error-response" style="display:none"></div>
                                     <div class="response" id="mce-success-response" style="display:none"></div>
                                 </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="<?php echo esc_html( $content['mailchimp_form_hidden_id'] ?? '' ) ?>" tabindex="-1" value=""></div>
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="<?php echo esc_html( $content['mailchimp_form_hidden_id']['value'] ?? '' ) ?>" tabindex="-1" value=""></div>
                                 <div class="mc-field-group">
                                     <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" style="margin-left:0;" >Subscribe</button>
                                 </div>
@@ -478,26 +510,24 @@ dt_write_log($content);
 
         </div>
     </div> <!-- end section-header -->
+    <?php endif; ?>
 
-    <?php if ( ! ( empty( $content['facebook_url'] ) && empty( $content['twitter_url'] ) && empty( $content['instagram_url'] ) ) ) : ?>
+    <?php if ( ! ( empty( $content['facebook_url']['value'] ) && empty( $content['twitter_url']['value'] ) && empty( $content['instagram_url']['value'] ) ) ) : ?>
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
-            <h1 class="display-1 display-1--light">(2) Follow on social media</h1>
+            <h1 class="display-1 display-1--light">Follow us on social media</h1>
             <p>
-                <?php if ( ! empty( $content['facebook_url'] ?? '' ) ) : ?>
-                <button type="button" onclick="location.href = '<?php echo esc_html( $content['facebook_url'] ?? '' ) ?>'"><i class="fab fa-facebook"></i> Facebook</button>
+                <?php if ( ! empty( $content['facebook_url']['value'] ?? '' ) ) : ?>
+                <button type="button" onclick="location.href = '<?php echo esc_html( $content['facebook_url']['value'] ?? '' ) ?>'"><i class="fab fa-facebook"></i> Facebook</button>
                 <?php endif; ?>
-                <?php if ( ! empty( $content['twitter_url'] ?? '' ) ) : ?>
-                <button type="button" onclick="location.href = '<?php echo esc_html( $content['twitter_url'] ?? '' ) ?>'"><i class="fab fa-twitter"></i> Twitter</button>
+                <?php if ( ! empty( $content['twitter_url']['value'] ?? '' ) ) : ?>
+                <button type="button" onclick="location.href = '<?php echo esc_html( $content['twitter_url']['value'] ?? '' ) ?>'"><i class="fab fa-twitter"></i> Twitter</button>
                 <?php endif; ?>
-                <?php if ( ! empty( $content['instagram_url'] ?? '' ) ) : ?>
-                <button type="button" onclick="location.href = '<?php echo esc_html( $content['instagram_url'] ?? '' ) ?>'"><i class="fab fa-instagram"></i> Instagram</button>
+                <?php if ( ! empty( $content['instagram_url']['value'] ?? '' ) ) : ?>
+                <button type="button" onclick="location.href = '<?php echo esc_html( $content['instagram_url']['value'] ?? '' ) ?>'"><i class="fab fa-instagram"></i> Instagram</button>
                 <?php endif; ?>
-
             </p>
-
         </div>
-
     </div> <!-- end section-header -->
     <?php endif; ?>
 
@@ -506,7 +536,7 @@ dt_write_log($content);
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
 
-            <h1 class="display-1 display-1--light">(3) Contact Us</h1>
+            <h1 class="display-1 display-1--light">Contact Us</h1>
 
             <form id="contact-form" action="">
 
@@ -751,8 +781,6 @@ dt_write_log($content);
         display: block;
     }
 
-
-
     input.input-text {
         display: block;
         padding: .5rem;
@@ -820,247 +848,247 @@ dt_write_log($content);
     }
 </style>
 
-<?php if ( $content['sample_section'] === 'yes' ) : ?>
-<!-- works
-================================================== -->
-<section id="works" class="s-works">
+<?php if ( $content['samples_section']['value'] === 'yes' ) : ?>
+    <!-- works
+    ================================================== -->
+    <section id="works" class="s-works">
 
-    <div class="row section-header" data-aos="fade-up">
-        <div class="col-full">
-            <h3 class="subhead">Samples</h3>
-            <h1 class="display-1">These are some examples of the encouragements we'll send you.</h1>
-        </div>
-    </div> <!-- end section-header -->
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Samples</h3>
+                <h1 class="display-1">These are some examples of the encouragements we'll send you.</h1>
+            </div>
+        </div> <!-- end section-header -->
 
-    <div class="row masonry-wrap">
-        <div class="masonry">
+        <div class="row masonry-wrap">
+            <div class="masonry">
 
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
 
-                    <div class="item-folio__thumb">
-                        <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-dmm1.jpg" class="thumb-link" title="Movement" data-size="800x800">
-                            <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/dmm1.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/dmm1.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-dmm1.jpg 2x" alt="">
+                        <div class="item-folio__thumb">
+                            <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-dmm1.jpg" class="thumb-link" title="Movement" data-size="800x800">
+                                <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/dmm1.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/dmm1.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-dmm1.jpg 2x" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">
+                                Path to growth
+                            </h3>
+                            <p class="item-folio__cat">
+                                Movement principles
+                            </p>
+                        </div>
+
+                        <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                            Link
                         </a>
-                    </div>
 
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Path to growth
-                        </h3>
-                        <p class="item-folio__cat">
-                            Movement principles
-                        </p>
-                    </div>
+                        <div class="item-folio__caption">
+                            <p>The great challenge that faces spiritual movement is not complexity of thought, but obedient action.</p>
+                        </div>
 
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Link
-                    </a>
+                    </div> <!-- end item-folio -->
+                </div> <!-- end masonry__brick -->
 
-                    <div class="item-folio__caption">
-                        <p>The great challenge that faces spiritual movement is not complexity of thought, but obedient action.</p>
-                    </div>
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
+                        <div class="item-folio__thumb">
+                            <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-pray.jpg" class="thumb-link" title="Pray" data-size="800x800">
+                                <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/pray.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/pray.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-pray.jpg 2x" alt="">
+                            </a>
+                        </div>
 
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">
+                                See where the kingdom isn't
+                            </h3>
+                            <p class="item-folio__cat">
+                                Compassion
+                            </p>
+                        </div>
 
-                    <div class="item-folio__thumb">
-                        <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-pray.jpg" class="thumb-link" title="Pray" data-size="800x800">
-                            <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/pray.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/pray.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-pray.jpg 2x" alt="">
+                        <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                            Link
                         </a>
-                    </div>
 
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            See where the kingdom isn't
-                        </h3>
-                        <p class="item-folio__cat">
-                            Compassion
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Link
-                    </a>
-
-                    <span class="item-folio__caption">
+                        <span class="item-folio__caption">
                             <p>Have eyes to see where the kingdom is not yet.</p>
                         </span>
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
+                    </div> <!-- end item-folio -->
+                </div> <!-- end masonry__brick -->
 
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
 
-                    <div class="item-folio__thumb">
-                        <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote1.jpg" class="thumb-link" title="Woodcraft" data-size="800x800">
-                            <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote1.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote1.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote1.jpg 2x" alt="">
+                        <div class="item-folio__thumb">
+                            <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote1.jpg" class="thumb-link" title="Woodcraft" data-size="800x800">
+                                <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote1.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote1.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote1.jpg 2x" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">
+                                Heart of Prayer
+                            </h3>
+                            <p class="item-folio__cat">
+                                Prayer
+                            </p>
+                        </div>
+
+                        <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                            Link
                         </a>
-                    </div>
 
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Heart of Prayer
-                        </h3>
-                        <p class="item-folio__cat">
-                            Prayer
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Link
-                    </a>
-
-                    <span class="item-folio__caption">
+                        <span class="item-folio__caption">
                             <p>Revision what prayer is.</p>
                         </span>
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
+                    </div> <!-- end item-folio -->
+                </div> <!-- end masonry__brick -->
 
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
 
-                    <div class="item-folio__thumb">
-                        <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-scripture.jpg" class="thumb-link" title="Liberty" data-size="800x800">
-                            <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/scripture1.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/scripture1.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-scripture.jpg 2x" alt="">
+                        <div class="item-folio__thumb">
+                            <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-scripture.jpg" class="thumb-link" title="Liberty" data-size="800x800">
+                                <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/scripture1.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/scripture1.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-scripture.jpg 2x" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">
+                                The Word has Power
+                            </h3>
+                            <p class="item-folio__cat">
+                                Scripture
+                            </p>
+                        </div>
+
+                        <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                            Link
                         </a>
-                    </div>
 
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            The Word has Power
-                        </h3>
-                        <p class="item-folio__cat">
-                            Scripture
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Link
-                    </a>
-
-                    <span class="item-folio__caption">
+                        <span class="item-folio__caption">
                             <p>Pray Continually</p>
                         </span>
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
+                    </div> <!-- end item-folio -->
+                </div> <!-- end masonry__brick -->
 
 
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
 
-                    <div class="item-folio__thumb">
-                        <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote4.jpg" class="thumb-link" title="Fuji" data-size="800x800">
-                            <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote4.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote4.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote4.jpg 2x" alt="">
+                        <div class="item-folio__thumb">
+                            <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote4.jpg" class="thumb-link" title="Fuji" data-size="800x800">
+                                <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote4.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote4.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote4.jpg 2x" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">
+                                Extraordinary Prayer
+                            </h3>
+                            <p class="item-folio__cat">
+                                Prayer
+                            </p>
+                        </div>
+
+                        <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                            Link
                         </a>
-                    </div>
 
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Extraordinary Prayer
-                        </h3>
-                        <p class="item-folio__cat">
-                            Prayer
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Link
-                    </a>
-
-                    <span class="item-folio__caption">
+                        <span class="item-folio__caption">
                             <p>The primary means of revival that everyone agrees on is extraordinary prayer.</p>
                         </span>
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
+                    </div> <!-- end item-folio -->
+                </div> <!-- end masonry__brick -->
 
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
 
-                    <div class="item-folio__thumb">
-                        <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote3.jpg" class="thumb-link" title="Shutterbug" data-size="800x800">
-                            <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote3.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote3.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote3.jpg 2x" alt="">
+                        <div class="item-folio__thumb">
+                            <a href="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote3.jpg" class="thumb-link" title="Shutterbug" data-size="800x800">
+                                <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote3.jpg" srcset="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/quote3.jpg 1x, <?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/g-quote3.jpg 2x" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">
+                                Jesus Commanded More
+                            </h3>
+                            <p class="item-folio__cat">
+                                Vision
+                            </p>
+                        </div>
+
+                        <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                            Link
                         </a>
-                    </div>
 
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Jesus Commanded More
-                        </h3>
-                        <p class="item-folio__cat">
-                            Vision
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Link
-                    </a>
-
-                    <span class="item-folio__caption">
+                        <span class="item-folio__caption">
                             <p>Jesus commanded much more.</p>
                         </span>
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
+                    </div> <!-- end item-folio -->
+                </div> <!-- end masonry__brick -->
 
-        </div> <!-- end masonry -->
-    </div> <!-- end masonry-wrap -->
+            </div> <!-- end masonry -->
+        </div> <!-- end masonry-wrap -->
 
-    <div class="testimonials-wrap" data-aos="fade-up">
+        <div class="testimonials-wrap" data-aos="fade-up">
 
-        <div class="row">
-            <div class="col-full testimonials-header">
-                <h2 class="h1">What Prayer Warriors Are Saying</h2>
+            <div class="row">
+                <div class="col-full testimonials-header">
+                    <h2 class="h1">What Prayer Warriors Are Saying</h2>
+                </div>
             </div>
-        </div>
 
-        <div class="row testimonials">
+            <div class="row testimonials">
 
-            <div class="col-full testimonials__slider">
+                <div class="col-full testimonials__slider">
 
-                <div class="testimonials__slide">
-                    <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/user-02.jpg" alt="Author image" class="testimonials__avatar">
-                    <p>If we never pray for movement in <?php echo esc_html( $content['location'] ?? '' ) ?>, do we have the right to complain when it isn't happening?</p>
-                    <div class="testimonials__author">
-                        Dave ~
-                        <span>Pastor</span>
-                    </div>
-                </div> <!-- end testimonials__slide -->
+                    <div class="testimonials__slide">
+                        <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/user-02.jpg" alt="Author image" class="testimonials__avatar">
+                        <p>If we never pray for movement in <?php echo esc_html( $content['location']['value'] ?? '' ) ?>, do we have the right to complain when it isn't happening?</p>
+                        <div class="testimonials__author">
+                            Dave ~
+                            <span>Pastor</span>
+                        </div>
+                    </div> <!-- end testimonials__slide -->
 
-                <div class="testimonials__slide">
-                    <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/user-01.jpg" alt="Author image" class="testimonials__avatar">
-                    <p>The American church needs to catch up with the prayer commitment, passion, and priority of the church in Asia and Africa.</p>
-                    <div class="testimonials__author">
-                        Chris ~
-                        <span>Worker, North America</span>
-                    </div>
-                </div> <!-- end testimonials__slide -->
+                    <div class="testimonials__slide">
+                        <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ); ?>images/user-01.jpg" alt="Author image" class="testimonials__avatar">
+                        <p>The American church needs to catch up with the prayer commitment, passion, and priority of the church in Asia and Africa.</p>
+                        <div class="testimonials__author">
+                            Chris ~
+                            <span>Worker, North America</span>
+                        </div>
+                    </div> <!-- end testimonials__slide -->
 
-                <div class="testimonials__slide">
-                    <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ) ?>images/keller.jpg" alt="Author image" class="testimonials__avatar">
-                    <p>The primary means of revival, that everyone agrees on, is extra-ordinary prayer.</p>
-                    <div class="testimonials__author">
-                        Tim Keller
-                        <span>Pastor</span>
-                    </div>
-                </div> <!-- end testimonials__slide -->
-
+                    <div class="testimonials__slide">
+                        <img src="<?php echo trailingslashit( plugin_dir_url( __FILE__ ) ); ?>images/keller.jpg" alt="Author image" class="testimonials__avatar">
+                        <p>The primary means of revival, that everyone agrees on, is extra-ordinary prayer.</p>
+                        <div class="testimonials__author">
+                            Tim Keller
+                            <span>Pastor</span>
+                        </div>
+                    </div> <!-- end testimonials__slide -->
 
 
-            </div> <!-- end testimonials__slider -->
 
-        </div> <!-- end testimonials -->
+                </div> <!-- end testimonials__slider -->
 
-    </div> <!-- end testimonials-wrap -->
+            </div> <!-- end testimonials -->
 
-</section> <!-- end s-works -->
+        </div> <!-- end testimonials-wrap -->
+
+    </section> <!-- end s-works -->
 
 <?php endif; ?>
 

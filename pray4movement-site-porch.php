@@ -254,3 +254,187 @@ add_action( 'plugins_loaded', function (){
         }
     }
 } );
+
+
+function p4m_porch_fields() {
+        $defaults = [
+            'title' => [
+                'label' => 'Title',
+                'value' => '',
+                'type' => 'text',
+            ],
+            'description' => [
+                'label' => 'Description',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'location' => [
+                'label' => 'Location',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'logo_url' => [
+                'label' => 'Logo URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'background_image_url' => [
+                'label' => 'Background Image URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'facebook_url' => [
+                'label' => 'Facebook URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'facebook_events_url' => [
+                'label' => 'Facebook Events URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'instagram_url' => [
+                'label' => 'Instagram URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'twitter_url' => [
+                'label' => 'Twitter URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'signal_url' => [
+                'label' => 'Signal Join Link',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'streets_of_prayer_url' => [
+                'label' => 'Streets of Prayer Link',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'whatsapp_url' => [
+                'label' => 'WhatsApp Join Link',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'zoom_meeting_time' => [
+                'label' => 'Zoom Meeting Time',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'zoom_url' => [
+                'label' => 'Zoom Join Link',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'movement_training' => [
+                'label' => 'Offer Movement Training',
+                'value' => '',
+                'type' => 'select',
+                'defaults' => [
+                    'no' => 'No',
+                    'yes' => 'Yes'
+                ]
+            ],
+
+            'mailchimp_form_url' => [
+                'label' => 'Mailchimp Form URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'mailchimp_form_hidden_id' => [
+                'label' => 'Mailchimp Form Hidden ID',
+                'value' => '',
+                'type' => 'text'
+            ],
+
+            'samples_section' => [
+                'label' => 'Samples Section',
+                'value' => '',
+                'type' => 'select',
+                'defaults' => [
+                    'no' => 'No',
+                    'yes' => 'Yes'
+                ]
+            ],
+            'stats_population' => [
+                'label' => 'Population',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'stats_cities' => [
+                'label' => 'Cities',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'stats_trainings' => [
+                'label' => 'Trainings',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'stats_churches' => [
+                'label' => 'Churches',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'contact_form' => [
+                'label' => 'Contact Form (GDPR)',
+                'value' => '',
+                'type' => 'textarea'
+            ],
+            'google_analytics' => [
+                'label' => 'Google Analytics',
+                'value' => '',
+                'type' => 'textarea'
+            ],
+            'mailchimp_api_key' => [
+                'label' => 'Mailchimp Key',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'mailchimp_list_id' => [
+                'label' => 'Mailchimp List ID',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'mailchimp_form_url' => [
+                'label' => 'Mailchimp Form URL',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'mailchimp_form_hidden_id' => [
+                'label' => 'Mailchimp Form Hidden ID',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'status_for_subscriptions' => [
+                'label' => 'Status for Subscriptions',
+                'value' => '',
+                'type' => 'text'
+            ],
+            'source_for_subscriptions' => [
+                'label' => 'Source for Subscriptions',
+                'value' => '',
+                'type' => 'source_for_subscriptions'
+            ],
+            'assigned_user_for_followup' => [
+                'label' => 'Assigned User for Followup',
+                'value' => '',
+                'type' => 'assigned_user_for_followup'
+            ],
+        ];
+
+        $defaults_count = count($defaults);
+
+        $saved_fields = get_option('landing_content', [] );
+        $saved_count = count($saved_fields);
+
+        $fields = wp_parse_args($saved_fields, $defaults);
+
+        if ( $defaults_count !== $saved_count ) {
+            update_option( 'landing_content', $fields );
+        }
+
+        return $fields;
+}

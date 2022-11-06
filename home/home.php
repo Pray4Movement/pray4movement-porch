@@ -44,8 +44,8 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function _browser_tab_title( $title ){
-        $content = get_option( 'landing_content' );
-        return $content['title'] ?? '';
+        $content = p4m_porch_fields();
+        return $content['title']['value'] ?? '';
     }
 
     public function theme_redirect() {
@@ -55,17 +55,17 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function _header(){
-        $content = get_option( 'landing_content' );
+        $content = p4m_porch_fields();
         ?>
-        <?php echo $content['google_analytics'] ?>
+        <?php echo $content['google_analytics']['value'] ?>
 
         <!--- basic page needs
         ================================================== -->
         <meta charset="utf-8">
-        <title><?php echo esc_html( $content['title'] ?? '' ) ?></title>
-        <meta name="description" content="<?php echo esc_html( $content['description'] ?? '' ) ?>">
-        <meta name="author" content="<?php echo esc_html( $content['title'] ?? '' ) ?>">
-        <meta name="author" content="<?php echo esc_html( $content['title'] ?? '' ) ?>">
+        <title><?php echo esc_html( $content['title']['value'] ?? '' ) ?></title>
+        <meta name="description" content="<?php echo esc_html( $content['description']['value'] ?? '' ) ?>">
+        <meta name="author" content="<?php echo esc_html( $content['title']['value'] ?? '' ) ?>">
+        <meta name="author" content="<?php echo esc_html( $content['title']['value'] ?? '' ) ?>">
 
         <!-- mobile specific metas
         ================================================== -->
