@@ -167,7 +167,7 @@ $content = p4m_porch_fields();
     <div class="row" data-aos="fade-up">
         <div class="col-full">
             <p class="lead">
-                Pray with us to see spiritual life poured out on our state.
+                Pray with us that <?php echo esc_html( $content['location']['value'] ?? '' ) ?> will be filled with the knowledge of the glory of the Lord, as the waters cover the sea.
             </p>
         </div>
     </div> <!-- end about-desc -->
@@ -243,10 +243,10 @@ $content = p4m_porch_fields();
                         <a href="<?php echo esc_html( $content['facebook_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Facebook</a>
                         <?php endif; ?>
                         <?php if ( ! empty( $content['twitter_url']['value'] ?? '' ) ) : ?>
-                        , <a href="<?php echo esc_html( $content['twitter_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Twitter</a>
+                          <a href="<?php echo esc_html( $content['twitter_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Twitter</a>
                         <?php endif; ?>
                         <?php if ( ! empty( $content['instagram_url']['value'] ?? '' ) ) : ?>
-                          , and <a href="<?php echo esc_html( $content['instagram_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Instagram</a>
+                           <a href="<?php echo esc_html( $content['instagram_url']['value'] ?? '' ) ?>" target="_blank" rel="noreferrer noopener">Instagram</a>
                         <?php endif; ?>
                     </p>
                 </div>
