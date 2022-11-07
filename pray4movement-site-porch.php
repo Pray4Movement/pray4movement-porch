@@ -427,13 +427,13 @@ function p4m_porch_fields() {
 
         $defaults_count = count($defaults);
 
-        $saved_fields = get_option('landing_content', [] );
+        $saved_fields = get_option('landing_content_v2', [] );
         $saved_count = count($saved_fields);
 
         $fields = wp_parse_args($saved_fields, $defaults);
 
         if ( $defaults_count !== $saved_count ) {
-            update_option( 'landing_content', $fields );
+            update_option( 'landing_content_v2', $fields );
         }
 
         return $fields;

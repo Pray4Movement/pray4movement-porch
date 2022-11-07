@@ -245,7 +245,7 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function save_newsletter( $data ) {
-        $content = get_option( 'landing_content' );
+        $content = p4m_porch_fields();
 
         $data = dt_recursive_sanitize_array( $data );
         $email = $data['email'] ?? '';
@@ -257,8 +257,8 @@ class Pray4Movement_Site_Porch_Home
         }
 
         //API KEY and LIST ID here
-        $apiKey = $content['mailchimp_api_key'];
-        $listId = $content['mailchimp_list_id'];
+        $apiKey = $content['mailchimp_api_key']['value'];
+        $listId = $content['mailchimp_list_id']['value'];
 
         $memberId = md5( strtolower( $email ) );
         $dataCenter = substr( $apiKey, strpos( $apiKey, '-' ) +1 );
@@ -293,7 +293,7 @@ class Pray4Movement_Site_Porch_Home
     }
 
     public function save_contact_lead( $data ) {
-        $content = get_option( 'landing_content' );
+        $content = p4m_porch_fields();
         $fields = [];
 
         $data = dt_recursive_sanitize_array( $data );
@@ -325,18 +325,18 @@ class Pray4Movement_Site_Porch_Home
         }
         $fields['type'] = 'access';
 
-        if ( isset( $content['assigned_user_for_followup'] ) && ! empty( $content['assigned_user_for_followup'] ) ) {
-            $fields['assigned_to'] = $content['assigned_user_for_followup'];
+        if ( isset( $content['assigned_user_for_followup']['value'] ) && ! empty( $content['assigned_user_for_followup']['value'] ) ) {
+            $fields['assigned_to'] = $content['assigned_user_for_followup']['value'];
         }
 
-        if ( isset( $content['status_for_subscriptions'] ) && ! empty( $content['status_for_subscriptions'] ) ) {
-            $fields['overall_status'] = $content['status_for_subscriptions'];
+        if ( isset( $content['status_for_subscriptions']['value'] ) && ! empty( $content['status_for_subscriptions']['value'] ) ) {
+            $fields['overall_status'] = $content['status_for_subscriptions']['value'];
         }
 
-        if ( isset( $content['source_for_subscriptions'] ) && ! empty( $content['source_for_subscriptions'] ) ) {
+        if ( isset( $content['source_for_subscriptions']['value'] ) && ! empty( $content['source_for_subscriptions']['value'] ) ) {
             $fields['sources'] = [
                 "values" => [
-                    [ "value" => $content['source_for_subscriptions'] ],
+                    [ "value" => $content['source_for_subscriptions']['value'] ],
                 ]
             ];
         }

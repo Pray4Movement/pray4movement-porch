@@ -105,7 +105,7 @@ class Pray4Movement_Site_Porch_Admin {
         if ( isset( $_POST['landing_page'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['landing_page'] ) ), 'landing_page'.get_current_user_id() ) ) {
 
             if ( isset( $_POST['reset'] ) ) {
-                delete_option('landing_content' );
+                delete_option('landing_content_v2' );
                 $content = p4m_porch_fields();
             }
             else {
@@ -225,7 +225,7 @@ class Pray4Movement_Site_Porch_Admin {
 //                $content['assigned_user_for_followup'] = sanitize_text_field( wp_unslash( $_POST['assigned_user_for_followup'] ) );
 //            }
 
-            update_option( 'landing_content', $content, true );
+            update_option( 'landing_content_v2', $content, true );
             $content = p4m_porch_fields();
         }
         ?>
@@ -375,11 +375,13 @@ class Pray4Movement_Site_Porch_Admin {
                                 </tbody>
                             </table>
 
+
                         </form>
                         <!-- End Box -->
                         <!-- End Main Column -->
                     </div><!-- end post-body-content -->
                     <div id="postbox-container-1" class="postbox-container">
+                            <?php print '<pre>'; print_r(get_option('landing_content') ); print '</pre>'; ?>
                         <!-- Right Column -->
                         <!-- End Right Column -->
                     </div><!-- postbox-container 1 -->
