@@ -167,7 +167,7 @@ $content = p4m_porch_fields();
     <div class="row" data-aos="fade-up">
         <div class="col-full">
             <p class="lead">
-                Pray with us that <?php echo esc_html( $content['location']['value'] ?? '' ) ?> will be filled with the knowledge of the glory of the Lord, as the waters cover the sea.
+                Pray with us that <?php echo esc_html( $content['location']['value'] ?? '' ) ?> will be filled with the knowledge of the glory of the Lord, as the waters cover the sea. (Habakkuk 2:14)
             </p>
         </div>
     </div> <!-- end about-desc -->
